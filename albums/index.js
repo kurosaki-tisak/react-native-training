@@ -5,7 +5,7 @@ import React from 'react';
 import { View, AppRegistry } from 'react-native';
 
 // Component
-import Header from './src/components/header';
+import Header from './src/components/Header'
 import AlbumList from './src/components/AlbumList';
 
 // Create a component
