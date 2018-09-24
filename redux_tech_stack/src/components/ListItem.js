@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { 
-    View, 
-    Text, 
-    TouchableWithoutFeedback, 
-    LayoutAnimation 
+import {
+    View,
+    Text,
+    TouchableWithoutFeedback,
+    LayoutAnimation
 } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection } from './common';
@@ -11,18 +11,19 @@ import * as actions from '../actions';
 
 class ListItem extends Component {
 
-    componentDidUpdate() {
+    componentWillUpdate() {
         LayoutAnimation.spring();
     }
 
     renderDescription() {
-        const { library, expanded } = this.props
+        const { expanded } = this.props;
+        const { description } = this.props.library.item
 
         if (expanded) {
             return (
                 <CardSection>
                     <Text style={{ flex: 1 }}>
-                        {library.description}
+                        {description}
                     </Text>
                 </CardSection>
             );
@@ -31,11 +32,17 @@ class ListItem extends Component {
 
     render() {
         const { titleStyle } = styles;
-        const { id, title } = this.props.library;
+        const { id, title } = this.props.library.item;
+
+        console.log(this.props)
 
         return (
             <TouchableWithoutFeedback
-                onPress={() => this.props.selectLibrary(id)}
+                onPress={() => {
+                    this.props.selectLibrary(id)
+                    console.log(this.props)
+                }
+                }
             >
                 <View>
                     <CardSection>
@@ -58,9 +65,9 @@ const styles = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const expanded = state.selectedLibraryId === ownProps.library.id;
+    const expanded = state.selectedLibraryId === ownProps.library.item.id;
 
-    return { expanded }
+    return { expanded };
 };
 
 export default connect(mapStateToProps, actions)(ListItem);
