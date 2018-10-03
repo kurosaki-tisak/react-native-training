@@ -5,9 +5,7 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers'
 import firebase from 'firebase';
-
-// Components
-import LoginForm from './components/LoginForm';
+import Router from './Router';
 
 class App extends Component {
 
@@ -28,9 +26,7 @@ class App extends Component {
 
         return (
             <Provider store={store}>
-                <View>
-                    <LoginForm/>
-                </View>
+                <Router />
             </Provider>
         );
     }

@@ -22,7 +22,7 @@ class LoginForm extends Component {
 
     renderButton() {
         if (this.props.loading) {
-            <Spinner size="large" />
+            return <Spinner size="large" />;
         }
 
         return (
