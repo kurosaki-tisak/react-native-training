@@ -1,40 +1,51 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native";
-
-import HideableParallaxListView from "./common/HideableParallaxListView";
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
+import HideableList from './views/HideableList';
 
 class MainScreen extends Component {
-  state = {
-    items: [
-      { key: "Devin" },
-      { key: "Jackson" },
-      { key: "James" },
-      { key: "Joel" },
-      { key: "John" },
-      { key: "Jillian" },
-      { key: "Jimmy" },
-      { key: "Julie" }
-    ]
-  };
 
-  renderItem() {
-    return this.state.items.map(item => (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }} key={item.key}>
-          {item.key}
-        </Text>
+  renderAnimatingHeader(title) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>{title}</Text>
       </View>
-    ));
+    );
+  }
+
+  renderItem(item) {
+    return (
+      <View style={styles.separator}>
+        <Text style={styles.item}>{item.title}</Text>
+      </View>
+    );
+  }
+
+  createItems = () => {
+    let items = []
+
+    for (let i = 0; i < 100; i++) {
+      let item = { id: i, title: i }
+      items.push(item)
+    }
+    return items
   }
 
   render() {
+
+    const data = this.createItems()
+
     return (
-      <HideableParallaxListView
-        windowHeight={300}
-        header={<Text style={styles.header}>Header Content</Text>}
+      <HideableList
+        data={data}
+        renderItem={this.renderItem}
+        headerHeight={150}
+        footerHeight={150}
+        renderAnimatingHeader={() => this.renderAnimatingHeader('Header')}
+        renderAnimatingFooter={() => this.renderAnimatingHeader('Footer')}
+        style={styles.list}
       >
-        <View>{this.renderItem()}</View>
-      </HideableParallaxListView>
+      </HideableList>
+
     );
   }
 }
@@ -44,18 +55,24 @@ export default MainScreen;
 const styles = {
   container: {
     flex: 1,
-    flexDirection: "column"
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    alignItems: 'center'
   },
-  header: {
+  list: {
     flex: 1,
-    backgroundColor: "red"
+    justifyContent: 'center'
   },
-  body: {
-    height: 500,
-    backgroundColor: "white"
+  item: {
+    backgroundColor: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+    padding: 10,
+    fontWeight: 'bold'
   },
-  footer: {
+  separator: {
     flex: 1,
-    backgroundColor: "tomato"
-  }
-};
+    borderWidth: 0.5,
+    borderColor: 'black'
+  },
+}
