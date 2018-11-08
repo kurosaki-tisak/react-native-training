@@ -1,0 +1,3 @@
+rootProject.name = 'maximize_scroll_view'
+
+include ':app'
